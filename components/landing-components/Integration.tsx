@@ -1,5 +1,5 @@
 import React from "react";
-import { Marquee } from "./ui/marquee";
+import { Marquee } from "../ui/marquee";
 import Image from "next/image";
 
 const snsList = [

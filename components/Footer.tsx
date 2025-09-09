@@ -1,3 +1,4 @@
+import { GalleryVerticalEnd } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -85,17 +86,14 @@ const Footer = ({
         <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
           <div className="col-span-2 mb-8 lg:mb-0">
             <div className="flex items-center gap-2 lg:justify-start">
-              <Link href={logo.url} className="flex items-center gap-2">
-                <Image
-                  src={logo.src}
-                  className="max-h-8 dark:invert"
-                  alt={logo.alt}
-                  width={32}
-                  height={32}
-                />
-                <span className="text-lg font-semibold tracking-tighter">
-                  {logo.title}
-                </span>
+              <Link
+                href="/"
+                className="flex items-center gap-2 self-center font-medium"
+              >
+                <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+                  <GalleryVerticalEnd className="size-4" />
+                </div>
+                AI Video Saas
               </Link>
             </div>
             <p className="mt-4 font-bold">{tagline}</p>

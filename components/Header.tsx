@@ -1,4 +1,4 @@
-import { Menu } from "lucide-react";
+import { GalleryVerticalEnd, Menu } from "lucide-react";
 import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
@@ -64,8 +64,8 @@ const Header = ({
     },
   ],
   auth = {
-    login: { title: "Login", url: "#" },
-    signup: { title: "Sign up", url: "#" },
+    login: { title: "Login", url: "/login" },
+    signup: { title: "Sign up", url: "/sign-up" },
   },
 }: Navbar1Props) => {
   return (
@@ -75,17 +75,14 @@ const Header = ({
         <nav className="hidden justify-between lg:flex">
           <div className="flex items-center gap-6">
             {/* Logo */}
-            <Link href={logo.url} className="flex items-center gap-2">
-              <Image
-                src={logo.src}
-                className="max-h-8 dark:invert"
-                alt={logo.alt}
-                width={32}
-                height={32}
-              />
-              <span className="text-lg font-semibold tracking-tighter">
-                {logo.title}
-              </span>
+            <Link
+              href="/"
+              className="flex items-center gap-2 self-center font-medium"
+            >
+              <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+                <GalleryVerticalEnd className="size-4" />
+              </div>
+              AI Video Saas
             </Link>
             <div className="flex items-center">
               <NavigationMenu>

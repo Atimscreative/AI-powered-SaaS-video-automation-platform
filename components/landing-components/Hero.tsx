@@ -9,17 +9,17 @@ const Hero = () => {
     <section className="h-full w-screen overflow-hidden py-32">
       <div className="container border-b border-t border-dashed">
         <div className="relative flex w-full max-w-5xl flex-col justify-start border border-t-0 border-dashed px-5 py-12 md:items-center md:justify-center lg:mx-auto">
-          <p className="text-muted-foreground flex items-center  gap-3 text-sm">
-            <span className="inline-block size-2 rounded bg-green-500" />
-            NEW BLOCKS IN 10 DAYS
+          <p className="text-muted-foreground flex items-center uppercase  gap-3 text-sm">
+            <span className="inline-block size-2 rounded  bg-green-500" />
+            Create. Share. Monetize
           </p>
-          <div className="mb-7 mt-3 w-full max-w-xl text-5xl  font-semibold tracking-tighter md:mb-10 md:text-center md:text-6xl lg:relative lg:mb-0 lg:text-left lg:text-7xl">
+          <div className="mb-7 mt-3 w-full leading-[120%] max-w-xl text-5xl  font-semibold tracking-tighter md:mb-10 md:text-center md:text-6xl lg:relative lg:mb-0 lg:text-left lg:text-7xl">
             <h1 className="relative z-10 inline md:mr-3 text-center">
               Instantly Generate <br className="block md:hidden" /> Your AI{" "}
-              <br className="block md:hidden" />
+              {/* <br className="block md:hidden" /> */}
             </h1>
             <ContainerTextFlip
-              className="absolute text-4xl  font-semibold tracking-tighter md:bottom-4 md:left-1/2 md:-translate-x-1/2 md:text-5xl lg:-bottom-4 lg:left-auto lg:translate-x-0 lg:text-7xl"
+              className="absolute font-semibold tracking-tighter md:bottom-4 md:left-1/2 md:-translate-x-1/2 md:text-5xl lg:-bottom-4 lg:left-auto lg:translate-x-0 lg:text-7xl"
               words={["Magic", "Story", "Content", "Brand", "Voice"]}
             />
           </div>
@@ -35,7 +35,7 @@ const Hero = () => {
           </div>
         </div>
         <ul className="md:h-34 mx-auto grid h-44 w-full max-w-5xl grid-cols-1 border border-b-0 border-dashed md:grid-cols-2 lg:h-24 lg:grid-cols-3">
-          <li className="flex h-full items-center justify-between gap-10 px-5 md:gap-3 lg:justify-center">
+          <li className="flex h-full items-center justify-between gap-5 lg:gap-10 px-5 md:gap-3 lg:justify-center">
             <div className="bg-muted flex size-12 items-center justify-center rounded-lg">
               <Zap className="text-muted-foreground size-6" />
             </div>
@@ -43,7 +43,7 @@ const Hero = () => {
               10K+ Videos Generated
             </p>
           </li>
-          <li className="flex h-full items-center justify-between gap-10 border-l border-t border-dashed px-5 md:gap-3 lg:justify-center lg:border-t-0">
+          <li className="flex h-full items-center justify-between gap-5 lg:gap-10 border-l border-t border-dashed px-5 md:gap-3 lg:justify-center lg:border-t-0">
             <div className="bg-muted flex size-12 items-center justify-center rounded-lg">
               <Users className="text-muted-foreground size-6" />
             </div>
@@ -51,7 +51,7 @@ const Hero = () => {
               50+ Languages Supported
             </p>
           </li>
-          <li className="col-span-1 flex h-full items-center justify-between gap-10 border-l border-t border-dashed px-5 md:col-span-2 md:justify-center md:gap-3 lg:col-span-1 lg:border-t-0">
+          <li className="col-span-1 flex h-full items-center justify-between gap-5 lg:gap-10 border-l border-t border-dashed px-5 md:col-span-2 md:justify-center md:gap-3 lg:col-span-1 lg:border-t-0">
             <div className="bg-muted flex size-12 items-center justify-center rounded-lg">
               <TrendingUp className="text-muted-foreground size-6" />
             </div>
