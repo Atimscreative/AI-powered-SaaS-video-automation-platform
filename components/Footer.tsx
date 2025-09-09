@@ -1,4 +1,3 @@
-import { Logo, LogoImage, LogoText } from "@/components/shadcnblocks/logo";
 import Image from "next/image";
 import Link from "next/link";
 
