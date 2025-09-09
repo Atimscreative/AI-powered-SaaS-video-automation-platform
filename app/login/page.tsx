@@ -1,7 +1,7 @@
 import { GalleryVerticalEnd } from "lucide-react";
 
 import { LoginForm } from "@/components/login-form";
-import { Link } from "@radix-ui/react-navigation-menu";
+import Link from "next/link";
 
 export default function LoginPage() {
   return (

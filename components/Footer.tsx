@@ -1,5 +1,4 @@
 import { GalleryVerticalEnd } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 interface MenuItem {
@@ -27,6 +26,7 @@ interface Footer2Props {
 }
 
 const Footer = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   logo = {
     src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg",
     alt: "blocks for shadcn/ui",
