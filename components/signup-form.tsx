@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,11 +11,42 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useSignup } from "@/hooks/useSignup";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object().shape({
+  name: yup.string(),
+  email: yup.string(),
+  password: yup.string(),
+});
 
 export function SignUpForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter();
+  const signup = useSignup();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  async function onSubmit(data: any) {
+    signup.mutate(data, {
+      onSuccess: (res) => {
+        // router.push("/auth/login");
+
+        console.log(res);
+      },
+    });
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -23,7 +55,7 @@ export function SignUpForm({
           <CardDescription>Sign up with your Google account</CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">
                 <Button variant="outline" className="w-full">
@@ -45,17 +77,23 @@ export function SignUpForm({
                 <div className="grid gap-3">
                   <Label htmlFor="email">Email</Label>
                   <Input
+                    {...register("email")}
                     id="email"
                     type="email"
                     placeholder="m@example.com"
-                    required
+                    className={cn("", errors.name && "border-red-600")}
                   />
                 </div>
                 <div className="grid gap-3">
                   <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
                   </div>
-                  <Input id="password" type="password" required />
+                  <Input
+                    {...register("password")}
+                    id="password"
+                    type="password"
+                    className={cn("", errors.password && "border-red-600")}
+                  />
                 </div>
                 <Button type="submit" className="w-full">
                   Sign Up

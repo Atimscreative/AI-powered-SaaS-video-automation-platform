@@ -2,6 +2,12 @@
 
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@iconify/tailwind4";
+
+@plugin "@iconify/tailwind4" {
+  prefix: "iconify";
+  scale: 1.2;
+}
 
 @custom-variant dark (&:is(.dark *));
 

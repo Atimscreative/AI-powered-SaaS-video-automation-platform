@@ -1,19 +1,64 @@
 import React from "react";
 import { Marquee } from "../ui/marquee";
-import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 const snsList = [
-  { icon: "", label: "YouTube" },
-  { icon: "", label: "instagram" },
-  { icon: "", label: "Facebook" },
-  { icon: "", label: "TikTok" },
-  { icon: "", label: "LinkedIn" },
-  { icon: "", label: "Twitter X" },
-  { icon: "", label: "Pinterest" },
-  { icon: "", label: "Reddit" },
-  { icon: "", label: "Telegram" },
-  { icon: "", label: "Snapchat" },
-  { icon: "", label: "Weibo" },
+  {
+    icon: "icon-[logos--youtube-icon]",
+    label: "YouTube",
+    description: "Auto-publish AI-generated videos to your YouTube channel.",
+  },
+  {
+    icon: "icon-[skill-icons--instagram]",
+    label: "Instagram",
+    description: "Upload reels, stories, and posts directly to Instagram.",
+  },
+  {
+    icon: "icon-[logos--facebook]",
+    label: "Facebook",
+    description: "Share videos and manage pages or groups on Facebook.",
+  },
+  {
+    icon: "icon-[logos--tiktok-icon]",
+    label: "TikTok",
+    description: "Post short-form AI videos straight to your TikTok account.",
+  },
+  {
+    icon: "icon-[devicon--linkedin]",
+    label: "LinkedIn",
+    description:
+      "Distribute professional video content to your LinkedIn profile or page.",
+  },
+  {
+    icon: "icon-[fa7-brands--square-x-twitter]",
+    label: "Twitter X",
+    description: "Publish video tweets and threads to engage your audience.",
+  },
+  {
+    icon: "icon-[logos--pinterest]",
+    label: "Pinterest",
+    description: "Auto-pin generated videos to your Pinterest boards.",
+  },
+  {
+    icon: "icon-[logos--reddit-icon]",
+    label: "Reddit",
+    description: "Post videos to your communities and subreddits.",
+  },
+  {
+    icon: "icon-[logos--telegram]",
+    label: "Telegram",
+    description: "Share videos in groups, channels, or with your subscribers.",
+  },
+  {
+    icon: "icon-[streamline-ultimate-color--snapchat-logo]",
+    label: "Snapchat",
+    description: "Publish video stories directly to your Snapchat audience.",
+  },
+  {
+    icon: "icon-[icon-park--weibo]",
+    label: "Weibo",
+    description: "Distribute multilingual videos to reach audiences in China.",
+  },
 ];
 
 const firstRow = snsList.slice(0, snsList.length / 2);
@@ -67,13 +112,9 @@ export default function Integration() {
 function SNSItem({ label, icon }: { label: string; icon: string }) {
   return (
     <div className="flex items-center justify-center bg-muted gap-4 rounded-full px-5 py-2">
-      <Image
-        width={20}
-        height={20}
-        src="/images/circles.svg"
-        alt="Figma"
-        className="size-5"
-      />
+      <div className="bg-neutral-200 rounded-full flex justify-center items-center size-8">
+        <span className={cn(icon, "size-5")}></span>
+      </div>
       <p className="text-lg">{label}</p>
     </div>
   );
