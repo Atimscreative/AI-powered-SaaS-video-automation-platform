@@ -19,15 +19,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 const schema = yup.object().shape({
   name: yup.string(),
-  email: yup.string(),
-  password: yup.string(),
+  email: yup.string().required("Email is required"),
+  password: yup.string().required("Password is required"),
 });
 
 export function SignUpForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const router = useRouter();
+  // const router = useRouter();
   const signup = useSignup();
   const {
     register,
@@ -38,7 +38,10 @@ export function SignUpForm({
   });
 
   async function onSubmit(data: any) {
-    signup.mutate(data, {
+    signup.mutateAsync(data, {
+      onError: (err) => {
+        console.log(data, err);
+      },
       onSuccess: (res) => {
         // router.push("/auth/login");
 
@@ -83,6 +86,9 @@ export function SignUpForm({
                     placeholder="m@example.com"
                     className={cn("", errors.name && "border-red-600")}
                   />
+                  {errors?.name && (
+                    <p className="text-red-600">{errors.name?.message}</p>
+                  )}
                 </div>
                 <div className="grid gap-3">
                   <div className="flex items-center">
@@ -94,8 +100,11 @@ export function SignUpForm({
                     type="password"
                     className={cn("", errors.password && "border-red-600")}
                   />
+                  {errors?.password && (
+                    <p className="text-red-600">{errors.password?.message}</p>
+                  )}
                 </div>
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full cursor-pointer">
                   Sign Up
                 </Button>
               </div>
