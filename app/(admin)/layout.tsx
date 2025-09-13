@@ -1,181 +1,134 @@
 "use client";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import {
   LayoutDashboard,
   Video,
-  Users,
-  Crown,
+  Settings,
+  Upload,
+  Calendar,
+  BarChart3,
+  Sun,
+  Moon,
   Menu,
   X,
-  Settings,
-  LogOut,
-  Bell,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
-  activeTab: string;
-  onTabChange: (tab: string) => void;
-  userRole: "member" | "admin" | "partner";
 }
 
-const DashboardLayout = ({
-  children,
-  activeTab,
-  onTabChange,
-  userRole,
-}: DashboardLayoutProps) => {
+const navigation = [
+  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { name: "Generate", href: "/dashboard/generate", icon: Video },
+  { name: "Uploads", href: "/dashboard/uploads", icon: Upload },
+  { name: "Schedule", href: "/dashboard/schedule", icon: Calendar },
+  { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
+  { name: "Settings", href: "/dashboard/settings", icon: Settings },
+];
+
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const getNavigationItems = () => {
-    const baseItems = [
-      {
-        id: "member",
-        label: "Create Videos",
-        icon: Video,
-        roles: ["member", "admin"],
-      },
-      {
-        id: "admin",
-        label: "Admin Panel",
-        icon: LayoutDashboard,
-        roles: ["admin"],
-      },
-      {
-        id: "partner",
-        label: "Partner Hub",
-        icon: Crown,
-        roles: ["partner", "admin"],
-      },
-    ];
-
-    return baseItems.filter((item) => item.roles.includes(userRole));
-  };
-
-  const navigationItems = getNavigationItems();
-
-  const NavContent = () => (
-    <>
-      <div className="flex items-center space-x-3 p-6 border-b border-border">
-        <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
-          <Video className="w-6 h-6 text-primary-foreground" />
-        </div>
-        <div>
-          <h2 className="text-lg font-bold text-foreground">VideoAI</h2>
-          <p className="text-sm text-muted-foreground capitalize">
-            {userRole} Dashboard
-          </p>
-        </div>
-      </div>
-
-      <nav className="flex-1 p-4">
-        <div className="space-y-2">
-          {navigationItems.map((item) => (
-            <Button
-              key={item.id}
-              variant={activeTab === item.id ? "default" : "ghost"}
-              className={cn(
-                "w-full justify-start",
-                activeTab === item.id && "bg-primary text-primary-foreground"
-              )}
-              onClick={() => {
-                onTabChange(item.id);
-                setSidebarOpen(false);
-              }}
-            >
-              <item.icon className="w-5 h-5 mr-3" />
-              {item.label}
-            </Button>
-          ))}
-        </div>
-      </nav>
-
-      <div className="p-4 border-t border-border">
-        <div className="space-y-2">
-          <Button variant="ghost" className="w-full justify-start">
-            <Settings className="w-5 h-5 mr-3" />
-            Settings
-          </Button>
-          <Button variant="ghost" className="w-full justify-start">
-            <LogOut className="w-5 h-5 mr-3" />
-            Sign Out
-          </Button>
-        </div>
-      </div>
-    </>
-  );
+  const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-gradient-hero">
-      {/* Mobile backdrop */}
+    <div className="min-h-screen bg-background">
+      {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          className="fixed inset-0 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
-        />
+        >
+          <div className="fixed inset-0 bg-black/50" />
+        </div>
       )}
 
-      {/* Desktop Sidebar */}
-      <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 z-50">
-        <div className="glass-card h-full border-r border-border">
-          <NavContent />
-        </div>
-      </div>
-
-      {/* Mobile Sidebar */}
+      {/* Sidebar */}
       <div
-        className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 ease-in-out lg:hidden",
+        className={`fixed top-0 h-screen left-0 z-[999] w-60 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        )}
+        }`}
       >
-        <div className="glass-card h-full border-r border-border">
-          <NavContent />
+        <div className="flex h-full flex-col gradient-surface border-r border-border">
+          {/* Logo */}
+          <div className="flex h-16 items-center justify-between px-4">
+            <div className="flex items-center gap-2">
+              <div className="h-8 w-8 bg-gradient-to-tr from-blue-700 to-blue-500 rounded-lg flex items-center justify-center">
+                <Video className="h-5 w-5 text-primary-foreground" />
+              </div>
+              <span className="text-xl font-bold">VideoGen Pro</span>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="lg:hidden"
+              onClick={() => setSidebarOpen(false)}
+            >
+              <X className="h-5 w-5" />
+            </Button>
+          </div>
+
+          {/* Navigation */}
+          <nav className="flex-1 space-y-1 px-4 py-4">
+            {navigation.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={cn(
+                    "flex items-center gap-3 p-2 rounded font-medium hover:bg-blue-100",
+                    pathname === item.href &&
+                      "from-blue-700 to-blue-500 bg-gradient-to-r !text-white"
+                  )}
+                >
+                  <Icon
+                    className={cn(
+                      "h-5 w-5 text-blue-700",
+                      pathname === item.href && "text-white"
+                    )}
+                  />
+                  {item.name}
+                </Link>
+              );
+            })}
+          </nav>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="lg:pl-64">
-        {/* Top Navigation */}
-        <div className="sticky top-0 z-30 glass border-b border-border">
-          <div className="px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              <div className="flex items-center">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="lg:hidden"
-                  onClick={() => setSidebarOpen(true)}
-                >
-                  <Menu className="w-6 h-6" />
-                </Button>
-                <h1 className="ml-4 text-xl font-semibold text-foreground lg:ml-0">
-                  {navigationItems.find((item) => item.id === activeTab)
-                    ?.label || "Dashboard"}
-                </h1>
-              </div>
+      {/* Main content */}
+      <div className="lg:pl-60 absolute top-0 left-0 w-full">
+        {/* Top header */}
+        <header className="h-16 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
+          <div className="flex h-full items-center justify-between px-6">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="lg:hidden"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
 
-              <div className="flex items-center space-x-4">
-                <Button variant="ghost" size="icon">
-                  <Bell className="w-5 h-5" />
-                </Button>
-                <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center">
-                  <Users className="w-4 h-4 text-primary-foreground" />
+            <div className="flex items-center gap-4">
+              <div className="hidden sm:block">
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-2 bg-secondary rounded-full animate-pulse" />
+                  <span className="text-sm text-muted-foreground">
+                    All systems operational
+                  </span>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </header>
 
-        {/* Page Content */}
-        <main className="p-4 sm:p-6 lg:p-8">
-          <div className="max-w-7xl mx-auto">{children}</div>
-        </main>
+        {/* Page content */}
+        <main className="p-6">{children}</main>
       </div>
     </div>
   );
-};
-
-export default DashboardLayout;
+}
